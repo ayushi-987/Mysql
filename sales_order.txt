@@ -1,0 +1,13 @@
+create table SALES_MASTER(
+    SALESMAN_NO varchar(6),
+    SALES_NAME varchar(20) NOT NULL,
+    ADDRESS varchar(20) NOT NULL,
+    CITY varchar(20),
+    STATE varchar(20),
+    PINCODE integer(6),
+    SAL_AMT float(8,2) NOT NULL,
+    Tgt_to_get float(6,2) NOT NULL,
+    Ygt_sale float(6,2) NOT NULL,
+    Remark integer(30),
+    PRIMARY KEY(SALESMAN_NO)
+);

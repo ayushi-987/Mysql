@@ -1,0 +1,15 @@
+create table PRODUCT_MASTER(
+PRODUCT_NO varchar(8),
+DESCRIPTION varchar(20),
+PROFIT integer(10),
+QTY_ON_HAND integer(10),
+ORDER_LEVEL integer(10),
+SELL_PRICE integer(10),
+COST_PRICE integer(10)
+);
+insert into PRODUCT_MASTER values
+("P00001","floppies",5,100,20,525,500),
+("P03453","monitor",6,10,3,12000,11200),
+("P06734","mouse",5,20,5,1050,500),
+("P07865","floppies",5,100,20,525,500);
+select * from PRODUCT_MASTER

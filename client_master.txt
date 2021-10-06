@@ -1,0 +1,14 @@
+create table CLIENT_MASTER(
+CLIENT_NO integer(5),
+CLIENT_NAME varchar(10),
+CITY varchar(15),
+STATE varchar(15),
+PINCODE integer(6),
+BAL_DUE integer(6)
+) ;
+insert into CLIENT_MASTER values
+(001,"Lvan","Bombay","Maharastra",400057,1500),
+(002,"Vandura","Madras","Tamilnadu",980001,0),
+(003,"Pramod","Bombay","Maharastra",400057,500),
+(004,"Basu","Bombay","Maharastra",4000052,100);
+select * from CLIENT_MASTER;
