@@ -1,0 +1,25 @@
+3)Add not null constraints in PRODUCT_MASTER with columns : description,profit,sellprice,costprice.
+5)Select product_no, description where profit is between 20 and 30 both inclusively .
+6)Add check constraint to product_master such that sellprice is always greater than costprice.
+
+
+create table PRODUCT_MASTER(
+PRODUCT_NO varchar(8),
+DESCRIPTION varchar(20) NOT NULL,
+PROFIT integer(10) NOT NULL,
+QTY_ON_HAND integer(10),
+ORDER_LEVEL integer(10),
+SELL_PRICE integer(10) NOT NULL,
+COST_PRICE integer(10)NOT NULL,
+check (SELL_PRICE>COST_PRICE)
+);
+insert into PRODUCT_MASTER values
+("P00001","floppies",15,100,20,525,500),
+("P03453","monitor",26,10,3,12000,11200),
+("P06734","mouse",25,20,5,1050,500),
+("P07865","floppies",36,100,20,525,500);
+select * from PRODUCT_MASTER;
+
+select PRODUCT_NO, DESCRIPTION
+from PRODUCT_MASTER
+where PROFIT>=20 AND PROFIT<=30;
