@@ -1,0 +1,28 @@
+1)Make CLIENT_NO primary key in CLIENT_MASTER.
+2)Add new column phone_number in CLIENT_MASTER table.
+4)Change size of CLIENT_NO field in CLIENT_MASTER.
+
+
+create table CLIENT_MASTER(
+CLIENT_NO integer(5),
+CLIENT_NAME varchar(10),
+CITY varchar(15),
+STATE varchar(15),
+PINCODE integer(6),
+BAL_DUE integer(6),
+PRIMARY KEY (CLIENT_NO)
+) ;
+insert into CLIENT_MASTER values
+(001,"Lvan","Bombay","Maharastra",400057,1500),
+(002,"Vandura","Madras","Tamilnadu",980001,0),
+(003,"Pramod","Bombay","Maharastra",400057,500),
+(004,"Basu","Bombay","Maharastra",4000052,100);
+
+Alter table CLIENT_MASTER
+add phone_number integer(10);
+
+ALTER table CLIENT_MASTER
+modify CLIENT_NO
+integer(10);
+
+select * from CLIENT_MASTER;
