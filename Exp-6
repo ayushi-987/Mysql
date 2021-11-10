@@ -1,0 +1,87 @@
+create table CLIENT_MASTER(
+CLIENT_NO integer(5),
+CLIENT_NAME varchar(10),
+CITY varchar(15),
+STATE varchar(15),
+PINCODE integer(6),
+BAL_DUE integer(6)
+) ;
+insert into CLIENT_MASTER values
+(001,"Ivan","Bombay","Maharastra",400057,1500),
+(002,"Vandana","Madras","Tamilnadu",980001,0),
+(003,"Pramod","Bombay","Maharastra",400057,500),
+(004,"Basu","Bombay","Maharastra",4000052,100);
+
+create table PRODUCT_MASTER(
+PRODUCT_NO varchar(8) PRIMARY KEY,
+DESCRIPTION varchar(20),
+PROFIT integer(10),
+QTY_ON_HAND integer(10),
+ORDER_LEVEL integer(10),
+SELL_PRICE integer(10),
+COST_PRICE integer(10)
+);
+insert into PRODUCT_MASTER values
+("P00001","floppies",5,100,20,525,500),
+("P03453","monitor",6,10,3,12000,11200),
+("P06734","mouse",5,20,5,1050,500),
+("P07865","floppies",5,100,20,525,500);
+
+create TABLE SALES_MASTER
+(
+Sales_no varchar(6),
+Sales_name varchar(20),
+Address varchar(20) NOT NULL,
+City varchar(20),
+State varchar(20),
+PINCODE int(6),
+SAL_AMT decimal(8,2) NOT NULL,
+Tgt_to_get DECIMAL(6,2) NOT NULL ,
+Ytd_sales DECIMAL(6,2) NOT NULL,
+Remark varchar(30),
+PRIMARY KEY (Sales_no)
+);
+
+create TABLE SALES_ORDER
+(
+s_order_no varchar(6),
+s_order_date date,
+client_no int(10),
+salesman_no varchar(26),
+delivery_type char(1) default 'F',
+billed_yn char(1),
+delivery_date date,
+order_status varchar(10),
+PRIMARY KEY(s_order_no),
+FOREIGN KEY(Client_no) REFERENCES Client_master(Client_no),
+FOREIGN KEY(salesman_no) REFERENCES SALES_MASTER(Sales_no)
+);
+
+CREATE TABLE sales_order_detail
+(
+s_order_no varchar(6),
+product_no varchar(6),
+qty_order int(8),
+qty_disp int(8),
+product_rate decimal(10,2),
+FOREIGN KEY(s_order_no) REFERENCES SALES_ORDER(s_order_no),
+FOREIGN KEY(product_no) REFERENCES PRODUCT_MASTER(PRODUCT_NO) 
+);
+insert into sales_order_detail values
+(1012, "P03453", 9, 4, 100),
+(1013, "P00001", 4, 4, 80),
+(1014, "P03453", 0, 0, 50);
+
+Select DESCRIPTION, SUM(qty_order) AS TOTAL_QTY FROM PRODUCT_MASTER, sales_order_detail
+WHERE PRODUCT_MASTER.PRODUCT_NO = sales_order_detail.product_no
+GROUP BY DESCRIPTION ;
+
+SELECT sales_order_detail.PRODUCT_NO, DESCRIPTION, SUM(qty_disp*product_rate) AS VALUE FROM PRODUCT_MASTER, sales_order_detail
+WHERE PRODUCT_MASTER.PRODUCT_NO = sales_order_detail.product_no
+GROUP BY DESCRIPTION, PRODUCT_NO ;
+
+SELECT CLIENT_NAME, DESCRIPTION FROM CLIENT_MASTER CM, PRODUCT_MASTER PM, SALES_ORDER SO, sales_order_detail SOD
+WHERE CM.CLIENT_NO = SO.client_no
+AND SO.s_order_no = SOD.s_order_no
+AND SOD.product_no = PM.PRODUCT_NO
+AND CLIENT_NAME = "Ivan";
